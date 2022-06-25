@@ -1,0 +1,41 @@
+<form class="col-6 m-auto p-5 border boreder-4 rounded-3 my-5 "  #contactUs ="ngForm" (ngSubmit)="sendValue(contactUs)">
+  <h2></h2>
+    <div class="mt-5">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="productName" 
+      name = "email" 
+      #email="ngModel" 
+      ngModel email="true"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      required>
+    </div>
+
+    <div class="text-danger" *ngIf="validtionError || !email.valid && email.touched">
+      <p *ngIf="email.errors?.['required']"> This field is required </p>
+      <p *ngIf="email.errors?.['pattern']"> This is not a valid Email!!!</p>
+    </div>
+
+
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1" 
+      name="password" 
+      #password="ngModel" 
+      ngModel
+      required>
+    </div>
+
+    <div class="text-danger" *ngIf=" validtionError || !password.valid && email.touched">
+      <p *ngIf="email.errors?.['required']"> This field is required </p>
+    </div>
+
+    <button  type="submit" [disabled]="!contactUs.valid" class="btn btn-primary d-block ms-auto mt-4">Submit</button>
+  </form>
+
+
+  <div class="reg-text text-center mt-5">
+  <h5 >Don't Have email ? <a routerLink="/auth/register">Register</a> </h5> 
+</div>
+
+
+

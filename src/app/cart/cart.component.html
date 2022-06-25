@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Image</th>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Remove Item</th>   
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let prod of productItem; let i=index">
+        <th><img class="img-th" src="{{prod.image}}" ></th>
+        <td>{{prod.title}}</td>
+        <td>{{prod.price}}</td>
+        <td class="text-center"> <button (click)="addQuntity(i)" class="mx-3">➕</button> {{prod.quantity}} <button (click)="removeQuntity(i)"  class="mx-3">➖</button>  </td>
+        <td><button (click)="removeitem(i)" type="button" class="btn btn-danger d-block m-auto">Remove</button></td>
+        
+      </tr>
+ 
+   
+    </tbody>
+  </table>

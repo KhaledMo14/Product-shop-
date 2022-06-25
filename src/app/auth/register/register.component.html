@@ -1,0 +1,209 @@
+
+<form [formGroup]="registerNow" (ngSubmit)="submitRegister()" class="col-6 m-auto p-5 border boreder-4 rounded-3 my-5" >
+  <h2 class="text-center"> Create An Account</h2>
+    <div>
+      <label for="Name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="Name" 
+      id="Name"
+      name="Name"
+      formControlName="Name">
+    </div>
+
+    <div *ngIf="!registerValidation['Name'].valid &&registerValidation['Name'].touched">
+        <p class="text-danger" *ngIf="registerValidation['Name'].errors?.['required']"> This field is required </p>
+    </div>
+
+
+
+    <div class="mt-4">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" 
+        id="email"
+        name="email"
+        formControlName="email">
+      </div>
+
+      <div *ngIf="!registerValidation['email'].valid &&registerValidation['email'].touched">
+        <p class="text-danger" *ngIf="registerValidation['email'].errors?.['required']"> This field is required </p>
+        <p class="text-danger" *ngIf="registerValidation['email'].errors?.['pattern']"> error in pattern </p>
+    </div>
+
+
+      <div class="mt-4">
+        <label for="userName" class="form-label">User Name</label>
+        <input type="userName" class="form-control" id="userName" 
+        id="userName"
+        name="userName"
+        formControlName="userName">
+      </div>
+
+      <div *ngIf="!registerValidation['userName'].valid &&registerValidation['userName'].touched">
+        <p class="text-danger" *ngIf="registerValidation['userName'].errors?.['required']"> This field is required </p>
+        <p class="text-danger" *ngIf="registerValidation['userName'].errors?.['pattern']"> error in pattern </p>
+    </div>
+
+      <div class="mt-4">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" 
+        id="password"
+        name="password"
+        formControlName="password">
+      </div>
+
+      <div *ngIf="!registerValidation['password'].valid &&registerValidation['password'].touched">
+        <p class="text-danger" *ngIf="registerValidation['password'].errors?.['required']"> This field is required </p>
+        <p class="text-danger" *ngIf="registerValidation['password'].errors?.['minlength']"> MIN length is 8 </p>
+
+    </div>
+
+      <div class="mt-4">
+        <label for="password" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPassword"
+        id="confirmPassword"
+        name="confirmPassword"
+        formControlName="confirmPassword">
+      </div>
+
+      
+      <div *ngIf="!registerValidation['confirmPassword'].valid &&registerValidation['confirmPassword'].touched">
+        <p class="text-danger" *ngIf="registerValidation['password'].errors?.['required']"> This field is required </p>
+    </div>
+    
+    <div *ngIf="registerValidation['confirmPassword'].touched">
+    <p class="text-danger" *ngIf="registerValidation['password'].value != registerValidation['confirmPassword'].value">Password Not Match</p>
+  </div>
+
+  <div class="form-group p-3 border boreder-4 rounded-3 my-3" *ngFor="let addr of adress.controls; let i=index" formArrayName="adress">
+        <div class="row" [formGroupName]="i">
+            <div class="col-6">
+
+                <label for="address">Address</label>
+        
+                <input
+        
+                  class="form-control my-2"
+        
+                  type="text"
+        
+                  id="address"
+        
+                  name="address"
+        
+                  placeholder="Address"
+
+                  formControlName="Adress"
+        
+                />
+
+                <div *ngIf="!addr.get('Adress')?.valid &&addr.get('Adress')?.touched">
+                    <p class="text-danger" *ngIf="addr.get('Adress')?.errors?.['required']"> This field is required </p>
+                </div>
+                 
+        
+              </div>
+
+              <div class="col-6">
+
+                <label for="street">Street</label>
+        
+                <input
+        
+                  class="form-control my-2"
+        
+                  type="text"
+        
+                  id="street"
+        
+                  name="street"
+        
+                  placeholder="Street"
+        
+                  formControlName="street"
+        
+                />
+
+                <div *ngIf="!addr.get('street')?.valid &&addr.get('street')?.touched">
+                    <p class="text-danger" *ngIf="addr.get('street')?.errors?.['required']"> This field is required </p>
+                </div>
+        
+              </div>
+
+              <div class="col-6">
+
+                <label for="country">Country</label>
+        
+                <input
+        
+                  class="form-control my-2"
+        
+                  type="text"
+        
+                  id="country"
+        
+                  name="country"
+        
+                  placeholder="Country"
+        
+                  formControlName="country"
+        
+                />
+
+                <div *ngIf="!addr.get('country')?.valid &&addr.get('country')?.touched">
+                    <p class="text-danger" *ngIf="addr.get('country')?.errors?.['required']"> This field is required </p>
+                    <p class="text-danger" *ngIf="addr.get('country')?.errors?.['pattern']"> error in pattern </p>
+                </div>
+        
+              </div>
+
+
+              <div class="col-6">
+
+                <label for="address">City</label>
+        
+                <input
+        
+                  class="form-control my-2"
+        
+                  type="text"
+        
+                  id="city"
+        
+                  name="city"
+        
+                  placeholder="City"
+        
+                  formControlName="city"
+        
+                />
+
+                <div *ngIf="!addr.get('city')?.valid &&addr.get('city')?.touched">
+                    <p class="text-danger" *ngIf="addr.get('city')?.errors?.['required']"> This field is required </p>
+                    <p class="text-danger" *ngIf="addr.get('city')?.errors?.['pattern']"> error in pattern </p>
+                </div>
+        
+              </div>
+ 
+
+
+              <button class="btn btn-danger w-50 m-auto mt-4" (click)="removeAdress(i)">Remove</button>
+ 
+        </div>
+    </div>
+
+
+
+
+    <button class="btn btn-primary d-block me-auto mt-4" type="submit" (click)="addAdress()">Add Adress</button> 
+
+    <button [disabled]="! registerNow.valid" type="submit" class="btn btn-outline-dark mt-5 w-100 ">Submit</button>
+
+  </form>
+
+
+
+  <div class="reg-text text-center mt-5">
+    <h5 >Already Have Account! <a routerLink="/auth/login">Login</a> </h5> 
+  </div>
+  
+
+
