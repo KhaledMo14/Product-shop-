@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit {
 
 
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder , private _router:Router) { }
 
   get adress():FormArray 
   {
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
 
   submitRegister()
   {
+    this._router.navigate(['/auth/login'])
 
   }
 

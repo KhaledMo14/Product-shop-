@@ -10,10 +10,15 @@ export class ProductServicesService {
   constructor(private http:HttpClient) {}
 
   carts:any[]=[];
+  totalPrice:number=0;
+  count:number=0;
+  emails:any
+  setItem:[]=[];
   
 
-  wishList = new BehaviorSubject(0)
+  wishList = new BehaviorSubject(this.count)
   cartArray = new BehaviorSubject(this.carts);
+  priceSubject= new BehaviorSubject(this.totalPrice);
   
   
   
@@ -26,14 +31,22 @@ export class ProductServicesService {
   }
 
   
-  setCount(count:number)
+  setCount()
   {
-    this.wishList.next(count)
+    this.count++
+    this.wishList.next(this.count)
   }
 
   getCount()
   {
     return this.wishList.asObservable()
+  }
+
+  decreasrCount(quantity = 1)
+  {
+    this.count -= quantity
+    this.wishList.next(this.count)
+
   }
 
   addToCart(product:any)
@@ -57,6 +70,8 @@ export class ProductServicesService {
     }
 
     this.cartArray.next(this.carts)
+    this.setCount()
+    this.productsPrice()
   }
 
   getCart()
@@ -64,6 +79,66 @@ export class ProductServicesService {
     return this.cartArray.asObservable()
   }
 
+  decreaseQuntity(i:number,id:number)
+  {
+   
+   let pro=this.carts.find((ele:any)=>{
+        return id == ele.id
+      })
+      if(pro.quantity>1) 
+      {
+        this.decreasrCount()
+        pro.quantity--;
+      }
+      else
+      {
+        this.removeItem(i,pro.quantity)
+      }
 
+      this.productsPrice()
+    }
 
+  increaseQuntity(id:number)
+  {
+    let pro  =  this.carts.find((ele:any)=>{
+      return id == ele.id
+    })
+    this.setCount()
+    pro.quantity++
+
+    this.productsPrice()
+  }
+
+  removeItem(i:number , quantity:number)
+  {
+
+    this.carts.splice(i,1);
+    this.decreasrCount(quantity)
+    this.productsPrice()
+ 
+  }
+  productsPrice()
+  {
+    this.totalPrice=0;
+    this.carts.map((ele:any)=>this.totalPrice += ele.quantity * ele.price)
+
+    this.priceSubject.next(this.totalPrice);
+    console.log(this.totalPrice)
+  }
+
+  getProductPrice():Observable<number>
+  {
+    return this.priceSubject.asObservable()
+
+  }
+   
+  isLoggedIn()
+  {
+    this.emails = localStorage.getItem('token')
+    if(this.emails)
+    {
+      this.setItem = JSON.parse(this.emails)
+    }
+    return this.setItem
+  }
 }

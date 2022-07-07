@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormArray, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -15,6 +15,10 @@ import { DetalisComponent } from './detalis/detalis.component';
 import { MypipePipe } from './mypipe.pipe';
 import { AddCartComponent } from './add-cart/add-cart.component';
 import { CartComponent } from './cart/cart.component';
+import { StoreModule } from '@ngrx/store';
+import { WishListComponent } from './wish-list/wish-list.component';
+import { reducer } from './wishList.reducer';
+import { InterceptorService } from './interceptor.service';
 
 
 @NgModule({
@@ -27,7 +31,8 @@ import { CartComponent } from './cart/cart.component';
     DetalisComponent,
     MypipePipe,
     AddCartComponent,
-    CartComponent
+    CartComponent,
+    WishListComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +40,11 @@ import { CartComponent } from './cart/cart.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    StoreModule.forRoot({wishList:reducer}),
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS , useClass:InterceptorService , multi :true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

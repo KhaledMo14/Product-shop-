@@ -1,11 +1,24 @@
-    <div class="item">
-    <img src="{{productDate.images[0]}}" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{productDate.title}}</h5>
-      <h5 class="card-cat">{{productDate.description}}</h5>
-      <p>{{productDate.price | mypipe }}</p>
-     <button class="btn btn-primary mx-3" (click)="cartFunc()">Add to Cart</button>
-     <button (click)="navigateToDetails()" type="button" class="btn btn-success">Show Details</button>
+<div class="text-center" *ngIf="_isLoading.isLoading | async" class="spinner-border m-5" role="status">
+  <span class="visually-hidden">Loading...</span>
 </div>
-    </div>
+<div class="item shadow p-3 mb-5 bg-white rounded">
+  <img src="{{ productDate.images[0] }}" alt="..." />
+  <div class="card-body">
+    <h6 class="card-title">{{ productDate.title }}</h6>
+    <h6 class="card-cat">{{ productDate.category.name }}</h6>
+    <p>{{ productDate.price | mypipe }}</p>
 
+    <div class="d-flex justify-content-between">
+      <button class="btn btn-primary" (click)="cartFunc()">
+        Add to Cart
+      </button>
+      <button (click)="navigateToDetails()" type="button" class="btn btn-success">
+        Show Details
+      </button>
+
+      <button class="btn" (click)="addToWishList(productDate)">
+        <i class="fa-solid fa-heart"></i>
+      </button>
+    </div>
+  </div>
+</div>

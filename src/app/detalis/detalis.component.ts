@@ -1,26 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductServicesService } from '../product-services.service';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-detalis',
   templateUrl: './detalis.component.html',
   styleUrls: ['./detalis.component.scss']
 })
-export class DetalisComponent implements OnInit {
 
+export class DetalisComponent implements OnInit {
   productId:any;
   product:any;
   currentCount:any;
+  destroy:any;
+
   
   constructor(private activatedRoute: ActivatedRoute , private  productService:ProductServicesService) {
+    
     this.productId = this.activatedRoute.snapshot.paramMap.get("id")
-    console.log(this.productId)
     }
    
+  
+    ngOnDestroy(): void
+    {
+      this.destroy.unsubscribe(); 
+    }
+  
 
   ngOnInit(): void {
-    this.productService.getId(this.productId).subscribe(
+    this.destroy = this.productService.getId(this.productId).subscribe(
       (respone)=>{
         this.product=respone;
         
@@ -35,10 +45,12 @@ export class DetalisComponent implements OnInit {
 
   }
 
-  cartFunc()
+  cartFunc(product:any)
   {
-    this. productService.setCount(this.currentCount + 1)
+    this.productService.addToCart(product)
   }
 
+
+   
 
 }

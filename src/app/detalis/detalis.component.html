@@ -4,6 +4,8 @@
       <h5 class="card-title  my-3">{{product.title}}</h5>
       <p class="card-text  my-3">{{product.description}}</p>
       <p>{{product.price | mypipe}}</p>
-      <button (click)="cartFunc()" class="btn btn-primary" >Add to Cart</button>
+      <button (click)="cartFunc(product)" class="btn btn-primary" >Add to Cart</button>
     </div>
   </div>
+
+

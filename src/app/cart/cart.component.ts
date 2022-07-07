@@ -12,47 +12,55 @@ export class CartComponent implements OnInit {
   productItem:any;
   counter:any;
   currentCount:number=0;
+  totalPrice:number=0;
  
-  constructor(private http:ProductServicesService) { }
+  constructor(private productService:ProductServicesService) { }
 
   ngOnInit(): void {
 
-    this.http.getCart().subscribe((res:any)=> {
+    this.productService.getCart().subscribe((res:any)=> {
       this.productItem = res;
       
     })
 
-    this.http.getCount().subscribe(
+    this.productService.getCount().subscribe(
       (res:any)=>{
         this.currentCount=res;
       }
     )
+
+    this.productService.getProductPrice().subscribe(
+      (res:any)=> {
+        this.totalPrice=res
+      }
+    )
+
+   
     
   }
 
-  removeitem(i:number) 
+  removeitem(i:number , prodQuntity:number) 
     {
-      this.productItem.splice(i,1);
-      // console.log(this.productItem[i].quantity)
+     this.productService.removeItem(i,prodQuntity)
     }
 
-    addQuntity(i:number) 
+    addQuntity(id:number) 
     {
-      (this.productItem[i].quantity) ++;
-
-     this.http.setCount(this.currentCount +1)
-
+     this.productService.increaseQuntity(id)
     }
 
-    removeQuntity(i:number)
+    removeQuntity(i:number,id:number)
     {
+      this.productService.decreaseQuntity(i,id);
       
-      if(this.productItem[i].quantity > 0) {
+    
+      }
 
-        (this.productItem[i].quantity) --;
-        this.http.setCount(this.currentCount -1)
-       }
-        
     }
 
-}
+
+
+  
+
+
+

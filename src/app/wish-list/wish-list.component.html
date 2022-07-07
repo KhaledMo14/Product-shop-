@@ -1,0 +1,21 @@
+<div class="shadow p-3 mb-5 bg-white rounded">
+
+<div class="row ">
+    <div class="col-6">
+      <p>{{ wishArray.length }} Products</p>
+    </div>
+  </div>
+  <div *ngFor="let wishArrayItem of wishArray" class="row">
+    <div class="row mt-3">
+      <div class="col-md-5">
+        <img [src]="wishArrayItem.images[0]" alt="" class="img-fluid" />
+      </div>
+      <div class="col-md-7">
+        <h6>{{ wishArrayItem.title }}</h6>
+        <button class="btn" (click)="deleteItem(wishArrayItem)">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
